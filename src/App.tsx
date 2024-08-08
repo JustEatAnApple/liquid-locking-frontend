@@ -1,89 +1,39 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { DappProvider } from "@multiversx/sdk-dapp/wrappers";
+import { EnvironmentsEnum } from "@multiversx/sdk-dapp/types";
+import { Unlock } from "./pages/Unlock";
+import { HomePage } from "./pages/Home";
+import { Dashboard } from "./pages/Dashboard";
+import { Nav } from "./components/Nav.tsx";
+import { TransactionsToastList } from "@multiversx/sdk-dapp/UI/TransactionsToastList/TransactionsToastList";
 import {
-  AxiosInterceptorContext, // using this is optional
-  DappProvider,
-  Layout,
-  TransactionsToastList,
   NotificationModal,
-  SignTransactionsModals
-  // uncomment this to use the custom transaction tracker
-  // TransactionsTracker
-} from 'components';
+  SignTransactionsModals,
+} from "@multiversx/sdk-dapp/UI";
+import "./App.css";
 
-import {
-  apiTimeout,
-  walletConnectV2ProjectId,
-  environment,
-  sampleAuthenticatedDomains
-} from 'config';
-import { RouteNamesEnum } from 'localConstants';
-import { PageNotFound, Unlock } from 'pages';
-import { routes } from 'routes';
-import { BatchTransactionsContextProvider } from 'wrappers';
-
-const AppContent = () => {
+function App() {
   return (
     <DappProvider
-      environment={environment}
+      environment={EnvironmentsEnum.devnet}
       customNetworkConfig={{
-        name: 'customConfig',
-        apiTimeout,
-        walletConnectV2ProjectId
-      }}
-      dappConfig={{
-        shouldUseWebViewProvider: true,
-        logoutRoute: RouteNamesEnum.unlock
-      }}
-      customComponents={{
-        transactionTracker: {
-          // uncomment this to use the custom transaction tracker
-          // component: TransactionsTracker,
-          props: {
-            onSuccess: (sessionId: string) => {
-              console.log(`Session ${sessionId} successfully completed`);
-            },
-            onFail: (sessionId: string, errorMessage: string) => {
-              console.log(`Session ${sessionId} failed. ${errorMessage ?? ''}`);
-            }
-          }
-        }
+        name: "[dappName]Config",
+        walletConnectV2ProjectId: "9b1a9564f91cb659ffe21b73d5c4e2d8",
       }}
     >
-      <AxiosInterceptorContext.Listener>
-        <Layout>
-          <TransactionsToastList />
-          <NotificationModal />
-          <SignTransactionsModals />
-          <Routes>
-            <Route path={RouteNamesEnum.unlock} element={<Unlock />} />
-            {routes.map((route) => (
-              <Route
-                path={route.path}
-                key={`route-key-'${route.path}`}
-                element={<route.component />}
-              />
-            ))}
-            <Route path='*' element={<PageNotFound />} />
-          </Routes>
-        </Layout>
-      </AxiosInterceptorContext.Listener>
+      <Router>
+        <Nav />
+        <TransactionsToastList />
+        <NotificationModal />
+        <SignTransactionsModals />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/unlock" element={<Unlock />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </Router>
     </DappProvider>
   );
-};
+}
 
-export const App = () => {
-  return (
-    <AxiosInterceptorContext.Provider>
-      <AxiosInterceptorContext.Interceptor
-        authenticatedDomains={sampleAuthenticatedDomains}
-      >
-        <Router>
-          <BatchTransactionsContextProvider>
-            <AppContent />
-          </BatchTransactionsContextProvider>
-        </Router>
-      </AxiosInterceptorContext.Interceptor>
-    </AxiosInterceptorContext.Provider>
-  );
-};
+export default App;

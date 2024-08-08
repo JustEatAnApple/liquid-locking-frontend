@@ -1,68 +1,34 @@
-# @multiversx/template-dapp
+# Web session references:
 
-The **MultiversX dApp Template**, built using [React.js](https://reactjs.org/) and [Typescript](https://www.typescriptlang.org/).
-It's a basic implementation of [@multiversx/sdk-dapp](https://www.npmjs.com/package/@multiversx/sdk-dapp), providing the basics for MultiversX authentication and TX signing.
+1. https://gist.github.com/CiprianDraghici/c9168291c50fcc94e3f8f3c6b90a5bf1
 
-See [Dapp template](https://template-dapp.multiversx.com/) for live demo.
+# React + TypeScript + Vite
 
-## Requirements
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-- Node.js version 16.20.0+
-- Npm version 8.19.4+
+Currently, two official plugins are available:
 
-## Getting Started
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-The dapp is a client side only project and is built using the [Create React App](https://create-react-app.dev) scripts.
+## Expanding the ESLint configuration
 
-### Instalation and running
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-### Step 1. Install modules
+- Configure the top-level `parserOptions` property like this:
 
-From a terminal, navigate to the project folder and run:
-
-```bash
-yarn install
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
 ```
 
-### Step 2. Running in development mode
-
-In the project folder run:
-
-```bash
-yarn start:devnet
-yarn start:testnet
-yarn start:mainnet
-```
-
-This will start the React app in development mode, using the configs found in the `vite.config.ts` file.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### Step 3. Build for testing and production use
-
-A build of the app is necessary to deploy for testing purposes or for production use.
-To build the project run:
-
-```bash
-yarn build:devnet
-yarn build:testnet
-yarn build:mainnet
-```
-
-## Roadmap
-
-See the [open issues](https://github.com/multiversx/mx-template-dapp/issues) for a list of proposed features (and known issues).
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-One can contribute by creating _pull requests_, or by opening _issues_ for discovered bugs or desired features.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
