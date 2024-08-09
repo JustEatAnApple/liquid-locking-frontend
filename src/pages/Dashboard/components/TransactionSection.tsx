@@ -294,6 +294,7 @@ export const TransactionSection = () => {
       signWithoutSending: false,
     });
     console.log("TRANSACTION SENT SUCCESSFULLY !")
+    setBodyInput("TRANSACTION SENT SUCCESSFULLY !")
   };
 
   useEffect(() => {
@@ -306,82 +307,105 @@ export const TransactionSection = () => {
         Create and send transaction
       </h2>
 
+      <div className="w-full flex justify-between my-4">
 
-      <button
-        onClick={setUnbondPeriod}
-        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        Set Unbond Period
-      </button>
-      <button
-        onClick={viewUnbondPeriod}
-        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        View Unbond Period
-      </button>
-      <button
-        onClick={whitelistToken}
-        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        Whitelist a Token
-      </button>
-      <button
-        onClick={blacklistToken}
-        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        Blacklist a Token
-      </button>
-      <button
-        onClick={viewWhitelistedTokens}
-        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        View Whitelisted Tokens
-      </button>
-      <button
-        onClick={viewLockedTokens}
-        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        View Locked Tokens
-      </button>
-      <button
-        onClick={viewLockedTokenAmounts}
-        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        View Locked Amounts
-      </button>
-      <button
-        onClick={viewUnlockedTokens}
-        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        View Unlocked Tokens
-      </button>
-      <button
-        onClick={viewUnlockedTokenAmounts}
-        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        View Unlocked Amounts
-      </button>
-      <button
-        onClick={lockTokens}
-        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        Lock Tokens
-      </button>
-      <button
-        onClick={unlockTokens}
-        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        Unlock Tokens
-      </button>
-      <button
-        onClick={unbondTokens}
-        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
-      >
-        Unbond Tokens
-      </button>
+          <div className="flex flex-col">
+              <button
+                onClick={whitelistToken}
+                className="bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                Whitelist a Token
+              </button>
+
+              <button
+                onClick={blacklistToken}
+                className="bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                Blacklist a Token
+              </button>
+
+              <button
+                onClick={viewWhitelistedTokens}
+                className="bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                View Whitelisted Tokens
+              </button>
+          </div>
+
+          <div className="flex flex-col">
+              <button
+                onClick={viewLockedTokens}
+                className="bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                View Locked Tokens
+              </button>
+
+              <button
+                onClick={viewLockedTokenAmounts}
+                className="bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                View Locked Amounts
+              </button>
+
+              <button
+                onClick={lockTokens}
+                className="bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                Lock Tokens
+              </button>
+          </div>
+
+          <div className="flex flex-col">
+              <button
+                onClick={viewUnlockedTokens}
+                className="bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+                >
+                View Unlocked Tokens
+              </button>
+              
+              <button
+                onClick={viewUnlockedTokenAmounts}
+                className="bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                View Unlocked Amounts
+              </button>
+
+              <button
+                onClick={unlockTokens}
+                className="bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                Unlock Tokens
+              </button>
+
+          </div>
+
+          <div className="flex flex-col">
+              <button
+                onClick={setUnbondPeriod}
+                className="bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                Set Unbond Period
+              </button>
+              <button
+                onClick={viewUnbondPeriod}
+                className="bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                View Unbond Period
+              </button>
+              <button
+                onClick={unbondTokens}
+                className="bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+              >
+                Unbond Tokens
+              </button>
+          </div>
+
+      
+      </div>
+
       <div className="flex justify-between w-full">
-        <label htmlFor="bodyInput" className="text-sm border border-gray-300 rounded bg-gray-50 w-24 text-black p-1 font-semi-bold">Body</label>
-        <button onClick={clearBody} className="font-medium text-sm border border-gray-300 hover:bg-gray-300 rounded bg-black text-white w-24 p-1">Clear Body</button>
+        <label htmlFor="bodyInput" className="text-base border border-gray-300 rounded bg-gray-50 w-24 text-black p-1 font-semi-bold">Body</label>
+        <button onClick={clearBody} className="font-medium text-base border border-gray-300 hover:bg-gray-700 rounded-xl bg-black text-white w-24 p-1">Clear Body</button>
       </div>
       <textarea id="bodyInput" value={bodyInput} onChange={handleInputChange} placeholder="Enter Body here" rows={7} className="w-full p-2 border border-gray-300 rounded text-sm"/>
       {/* <pre className="text-sm text-left">
