@@ -62,6 +62,42 @@ export const TransactionSection = () => {
 
   }
 
+  const viewUnlockedTokens = async () => {
+
+    const tx = await axios.get<IPlainTransactionObject>(
+      'http://localhost:3000/unlockedTokens/', 
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173'
+        }
+      }
+    );
+
+    console.log(tx.data);
+    setBodyInput(JSON.stringify(tx.data, null, 2));
+    setTx(Transaction.fromPlainObject(tx.data));
+  
+  }
+
+  const viewUnlockedTokenAmounts = async () => {
+
+    const tx = await axios.get<IPlainTransactionObject>(
+      'http://localhost:3000/unlockedTokens/amounts/', 
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173'
+        }
+      }
+    );
+    
+    console.log(tx.data);
+    setBodyInput(JSON.stringify(tx.data, null, 2));
+    setTx(Transaction.fromPlainObject(tx.data));
+
+  }
+
   const lockTokens = async () => {
     setBodyInput('')
     if(bodyInput){
@@ -86,6 +122,30 @@ export const TransactionSection = () => {
   
   }
 
+  const unlockTokens = async () => {
+    setBodyInput('')
+    if(bodyInput){
+      console.log("THIS IS BODY INPUT: ", bodyInput)
+    }
+
+    const tx = await axios.post<IPlainTransactionObject>(
+      'http://localhost:3000/unlock',
+      bodyInput,
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+   
+    console.log("I GENERATED UNLOCK TRANSACTION")
+    setTx(Transaction.fromPlainObject(tx.data));
+    setBodyInput('TRANSACTION IS GENERATED!');
+  
+  }
+
   const sendTransaction = async () => {
     if (!address || !tx) {
       console.error("Address or transaction not found");
@@ -101,6 +161,7 @@ export const TransactionSection = () => {
       },
       signWithoutSending: false,
     });
+    console.log("TRANSACTION SENT SUCCESSFULLY !")
   };
 
   useEffect(() => {
@@ -126,10 +187,28 @@ export const TransactionSection = () => {
         View Locked Amounts
       </button>
       <button
+        onClick={viewUnlockedTokens}
+        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        View Unlocked Tokens
+      </button>
+      <button
+        onClick={viewUnlockedTokenAmounts}
+        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        View Unlocked Amounts
+      </button>
+      <button
         onClick={lockTokens}
         className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
       >
         Lock Tokens
+      </button>
+      <button
+        onClick={unlockTokens}
+        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        Unlock Tokens
       </button>
       <div className="flex justify-between w-full">
         <label htmlFor="bodyInput" className="text-sm border border-gray-300 rounded bg-gray-50 w-24 text-black p-1 font-semi-bold">Body</label>
