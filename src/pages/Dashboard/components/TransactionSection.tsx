@@ -158,6 +158,78 @@ export const TransactionSection = () => {
   
   }
 
+  const setUnbondPeriod = async () => {
+    setBodyInput('')
+    if(bodyInput){
+      console.log("THIS IS BODY INPUT: ", bodyInput)
+    }
+
+    const tx = await axios.post<IPlainTransactionObject>(
+      'http://localhost:3000/setUnboundPeriod',
+      bodyInput,
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+   
+    console.log("I GENERATED SET_UNBOND_PERIOD TRANSACTION")
+    setTx(Transaction.fromPlainObject(tx.data));
+    setBodyInput('TRANSACTION IS GENERATED!');
+
+  }
+  
+  const whitelistToken = async () => {
+    setBodyInput('')
+    if(bodyInput){
+      console.log("THIS IS BODY INPUT: ", bodyInput)
+    }
+
+    const tx = await axios.post<IPlainTransactionObject>(
+      'http://localhost:3000/whiteListToken',
+      bodyInput,
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+   
+    console.log("I GENERATED WHITELIST_TOKEN TRANSACTION")
+    setTx(Transaction.fromPlainObject(tx.data));
+    setBodyInput('TRANSACTION IS GENERATED!');
+
+  }
+
+  const blacklistToken = async () => {
+    setBodyInput('')
+    if(bodyInput){
+      console.log("THIS IS BODY INPUT: ", bodyInput)
+    }
+
+    const tx = await axios.post<IPlainTransactionObject>(
+      'http://localhost:3000/blackListToken',
+      bodyInput,
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+   
+    console.log("I GENERATED BLACKLIST_TOKEN TRANSACTION")
+    setTx(Transaction.fromPlainObject(tx.data));
+    setBodyInput('TRANSACTION IS GENERATED!');
+
+  }
+
   const unlockTokens = async () => {
     setBodyInput('')
     if(bodyInput){
@@ -234,17 +306,36 @@ export const TransactionSection = () => {
         Create and send transaction
       </h2>
 
+
       <button
-        onClick={viewWhitelistedTokens}
-        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+        onClick={setUnbondPeriod}
+        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
       >
-        View Whitelisted Tokens
+        Set Unbond Period
       </button>
       <button
         onClick={viewUnbondPeriod}
         className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
       >
         View Unbond Period
+      </button>
+      <button
+        onClick={whitelistToken}
+        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        Whitelist a Token
+      </button>
+      <button
+        onClick={blacklistToken}
+        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        Blacklist a Token
+      </button>
+      <button
+        onClick={viewWhitelistedTokens}
+        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        View Whitelisted Tokens
       </button>
       <button
         onClick={viewLockedTokens}
