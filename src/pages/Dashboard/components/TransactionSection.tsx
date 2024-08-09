@@ -26,6 +26,42 @@ export const TransactionSection = () => {
     setBodyInput('')
   }
 
+  const viewWhitelistedTokens = async () => {
+
+    const tx = await axios.get<IPlainTransactionObject>(
+      'http://localhost:3000/whitelistedTokens/', 
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173'
+        }
+      }
+    );
+
+    console.log(tx.data);
+    setBodyInput(JSON.stringify(tx.data, null, 2));
+    setTx(Transaction.fromPlainObject(tx.data));
+  
+  }
+
+  const viewUnbondPeriod = async () => {
+
+    const tx = await axios.get<IPlainTransactionObject>(
+      'http://localhost:3000/unbondPeriod/', 
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173'
+        }
+      }
+    );
+
+    console.log(tx.data);
+    setBodyInput(JSON.stringify(tx.data, null, 2));
+    setTx(Transaction.fromPlainObject(tx.data));
+
+  }
+
   const viewLockedTokens = async () => {
 
     const tx = await axios.get<IPlainTransactionObject>(
@@ -146,6 +182,30 @@ export const TransactionSection = () => {
   
   }
 
+  const unbondTokens = async () => {
+    setBodyInput('')
+    if(bodyInput){
+      console.log("THIS IS BODY INPUT: ", bodyInput)
+    }
+
+    const tx = await axios.post<IPlainTransactionObject>(
+      'http://localhost:3000/unbond',
+      bodyInput,
+      {
+        headers: {
+          'Authorization': 'Bearer ' + bearerToken,
+          'Origin': 'localhost:5173',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+   
+    console.log("I GENERATED UNBOND TRANSACTION")
+    setTx(Transaction.fromPlainObject(tx.data));
+    setBodyInput('TRANSACTION IS GENERATED!');
+  
+  }
+
   const sendTransaction = async () => {
     if (!address || !tx) {
       console.error("Address or transaction not found");
@@ -174,6 +234,18 @@ export const TransactionSection = () => {
         Create and send transaction
       </h2>
 
+      <button
+        onClick={viewWhitelistedTokens}
+        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        View Whitelisted Tokens
+      </button>
+      <button
+        onClick={viewUnbondPeriod}
+        className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        View Unbond Period
+      </button>
       <button
         onClick={viewLockedTokens}
         className="w-48 bg-mvx-blue hover:scale-105  text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
@@ -209,6 +281,12 @@ export const TransactionSection = () => {
         className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
       >
         Unlock Tokens
+      </button>
+      <button
+        onClick={unbondTokens}
+        className="w-48 bg-mvx-blue hover:scale-105 text-black font-medium py-1 px-2 my-2 rounded-lg text-base"
+      >
+        Unbond Tokens
       </button>
       <div className="flex justify-between w-full">
         <label htmlFor="bodyInput" className="text-sm border border-gray-300 rounded bg-gray-50 w-24 text-black p-1 font-semi-bold">Body</label>
