@@ -5,6 +5,9 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['"Inter"', 'sans-serif']
+            },
+            colors: {
+                'mvx-blue': "#23F7DD",
             }
         },
         backgroundImage: {
